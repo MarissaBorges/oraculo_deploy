@@ -9,17 +9,45 @@ TIPOS_DADOS_VALIDOS = [
 
 CONFIG_MODELOS = {
     "Groq": {"modelos": ["llama3-70b-8192","mistral-saba-24b","gemma-2b-it", "deepseek-r1-distill-llama-70b", "allam-2-7b", "whisper-large-v3-turbo"],
-             'chat': ChatGroq, 'api_key': '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'},
-    "Google": {"modelos": ["gemma-3-27b-it", "gemma-3n-e4b-it"], 
-               'chat': ChatGoogleGenerativeAI, 'api_key': 'AIzaSyAyxXDdUZiuPlHnaTaQDwkrh7nafxRflNE'},
+             'chat': ChatGroq, 'secret_name': 'GROQ_API_KEY'}, 
+    "Google": {"modelos": ["gemini-1.5-pro-latest", "gemini-pro"],
+               'chat': ChatGoogleGenerativeAI, 'secret_name': 'GOOGLE_API_KEY'},
 }
 
 MEMORIA = ConversationBufferMemory()
 def carrega_modelo(provedor, modelo):
-    api_key = CONFIG_MODELOS[provedor]['api_key']
-    chat = CONFIG_MODELOS[provedor]['chat'](model=modelo, api_key=api_key)
-    st.session_state['chat'] = chat
+        config_provedor = CONFIG_MODELOS.get(provedor)
 
+        secret_name = config_provedor.get('secret_name')
+        if not secret_name:
+            st.error(f"Nome da chave secreta não configurado para o provedor '{provedor}'.")
+            return False
+
+        api_key = st.secrets.get(secret_name)
+
+        if not api_key: # Verifica se a chave é None ou vazia
+            st.error(f"Chave API para {provedor} ({secret_name}) não encontrada ou está vazia. "
+                    f"Por favor, configure-a corretamente em st.secrets.")
+            return False
+
+        chat_class = config_provedor['chat']
+        try:
+            if provedor == "Groq":
+                chat_instance = chat_class(model_name=modelo, groq_api_key=api_key)
+            elif provedor == "Google":
+                chat_instance = chat_class(model=modelo, google_api_key=api_key)
+            else: # Fallback, pode não funcionar para todos os provedores
+                chat_instance = chat_class(model=modelo, api_key=api_key)
+            
+            st.session_state['chat'] = chat_instance
+            st.success(f"Modelo {provedor} - {modelo} carregado com sucesso!")
+            return True
+        except Exception as e: # Captura erros ao tentar usar a chave (ex: chave incorreta)
+            st.error(f"Erro ao carregar o modelo {provedor} - {modelo}. "
+                    f"Verifique se a chave API está correta e tem as permissões necessárias. Detalhes: {e}")
+            if 'chat' in st.session_state: # Limpa se houve tentativa de definir
+                del st.session_state['chat']
+            return False
 
 def pagina_inicial():
     st.header('🤖 Bem-Vindo ao Oráculo Mimir', divider=True)
