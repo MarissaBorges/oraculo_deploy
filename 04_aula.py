@@ -8,9 +8,9 @@ TIPOS_DADOS_VALIDOS = [
 ]
 
 CONFIG_MODELOS = {
-    "Groq": {"modelos": ["llama3-70b-8192","mistral-saba-24b","gemma-2b-it", "deepseek-r1-distill-llama-70b", "allam-2-7b", "whisper-large-v3-turbo"],
+    "Groq": {"modelos": ["llama3-70b-8192","mistral-saba-24b", "deepseek-r1-distill-llama-70b", "allam-2-7b"],
              'chat': ChatGroq, 'secret_name': 'GROQ_API_KEY'}, 
-    "Google": {"modelos": ["gemini-1.5-pro-latest", "gemini-pro"],
+    "Google": {"modelos": ["gemma-3-1b-it", "gemma-3-4b-it", "gemma-3-12b-it", "gemma-3n-e4b-it"],
                'chat': ChatGoogleGenerativeAI, 'secret_name': 'GOOGLE_API_KEY'},
 }
 
@@ -64,8 +64,6 @@ def pagina_inicial():
         chat = st.chat_message('human')
         chat.markdown(input_user)
 
-        memoria.chat_memory.add_user_message(input_user)
-
         if chat_model is None:
             chat = st.chat_message('ai')
             chat.error("🤖 Mimir não foi inicializado. Por favor, selecione um modelo e clique em 'Inicializar Mimir' na barra lateral.")
@@ -77,7 +75,6 @@ def pagina_inicial():
             memoria.chat_memory.add_ai_message(resposta)
 
         st.session_state['memoria'] = memoria
-        print(st.session_state['memoria'])
 
 
 def sidebar():
