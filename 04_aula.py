@@ -76,7 +76,6 @@ def pagina_inicial():
 
         st.session_state['memoria'] = memoria
 
-
 def sidebar():
     tabs = st.tabs(['Upload de Dados', 'Seleção de Modelos'])
     with tabs[0]:
