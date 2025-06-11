@@ -20,34 +20,47 @@ def carrega_site(url):
         if documento == '':
             st.error('Não foi possível carregar o site...')
             st.stop()
-        return documento
+    return documento
 
 def carrega_youtube(video_id):
-    loader = YoutubeLoader(video_id, add_video_info=False, language=['pt'])
-    lista_documentos = loader.load()
-    documento = '\n\n'.join([doc.page_content for doc in lista_documentos])
+    documento = ''
+    try:
+        loader = YoutubeLoader(video_id, add_video_info=False, language=['pt'])
+        lista_documentos = loader.load()
+        documento = '\n\n'.join([doc.page_content for doc in lista_documentos])
+    except:
+        st.error('Não foi possível carregar as legendas do vídeo :( Por favor baixe as legendas manualmente no formato **.txt** e envie o arquivo escolhendo o formato TXT.')
     return documento
 
 def carrega_csv(caminho):
     documento = '' 
-    if not caminho == '':
-        loader = CSVLoader(caminho)
-        lista_documentos = loader.load()
-        documento = '\n\n'.join([doc.page_content for doc in lista_documentos])
+    try:
+        if not caminho == '':
+            loader = CSVLoader(caminho)
+            lista_documentos = loader.load()
+            documento = '\n\n'.join([doc.page_content for doc in lista_documentos])
+    except:
+        st.error('Ocorreu um erro ao carregar o arquivo :( Por favor recarregue a página.')
     return documento
 
 def carrega_pdf(caminho):
     documento = '' 
-    if not caminho == '':
-        loader = PyPDFLoader(caminho)
-        lista_documentos = loader.load()
-        documento = '\n\n'.join([doc.page_content for doc in lista_documentos])
+    try:
+        if not caminho == '':
+            loader = PyPDFLoader(caminho)
+            lista_documentos = loader.load()
+            documento = '\n\n'.join([doc.page_content for doc in lista_documentos])
+    except:
+        st.error('Ocorreu um erro ao carregar o arquivo :( Por favor recarregue a página.')
     return documento
 
 def carrega_txt(caminho):
     documento = '' 
-    if not caminho == '':
-        loader = TextLoader(caminho)
-        lista_documentos = loader.load()
-        documento = '\n\n'.join([doc.page_content for doc in lista_documentos])
+    try:
+        if not caminho == '':
+            loader = TextLoader(caminho)
+            lista_documentos = loader.load()
+            documento = '\n\n'.join([doc.page_content for doc in lista_documentos])
+    except:
+        st.error('Ocorreu um erro ao carregar o arquivo :( Por favor recarregue a página.')
     return documento

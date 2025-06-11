@@ -196,12 +196,12 @@ def sidebar():
         st.session_state['memoria'] = MEMORIA
 
 def main():
-    # try:
+    try:
         with st.sidebar:
             sidebar()
         pagina_inicial()
-    # except:
-        # st.error('Ocorreu um erro na aplicação, por favor recarregue a página e tente novamente...')
+    except:
+        st.error('Ocorreu um erro na aplicação, por favor recarregue a página e tente novamente...')
 
 if __name__ == '__main__':
     main()
