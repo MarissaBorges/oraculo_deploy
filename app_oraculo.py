@@ -138,7 +138,7 @@ def pagina_inicial():
     chain = st.session_state.get('chain')
 
     if chain is None:
-        st.error('O Oráculo não foi inicializado, por favor clique em iniciar em **Inicializar Mimir...**')
+        st.error('O Oráculo não foi inicializado, por favor clique em **Inicializar Mimir...**')
         st.stop()
 
     memoria = st.session_state.get('memoria', MEMORIA)
