@@ -24,7 +24,7 @@ TIPOS_DADOS_VALIDOS = [
 ]
 
 CONFIG_MODELOS = {
-    "Groq": {"modelos": ["llama3-70b-8192","mistral-saba-24b", "deepseek-r1-distill-llama-70b", "allam-2-7b"],
+    "Groq": {"modelos": ["llama3-70b-8192","meta-llama/llama-guard-4-12b", "deepseek-r1-distill-llama-70b", "allam-2-7b"],
              'chat': ChatGroq, 'secret_name': 'GROQ_API_KEY'}, 
 }
 
