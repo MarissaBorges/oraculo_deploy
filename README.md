@@ -15,6 +15,10 @@
 </p>
 
 <p align="center">
+    <img src="https://img.shields.io/badge/Deployed%20on-Streamlit%20Cloud-FF4B4B?logo=streamlit&style=for-the-badge" alt="Deployed on Streamlit Cloud">
+</p>
+
+<p align="center">
  <a href="#-descrição">Descrição</a> • 
  <a href="#-funcionalidades">Funcionalidades</a> • 
  <a href="#-começando">Como Executar</a> • 
@@ -84,14 +88,14 @@ Crie um ambiente virtual para evitar conflito de dependências
 
 ```bash
 # Crie o ambiente virtual
-python -m venv venv
+python -m venv .venv
 
 # Ative o ambiente
 # No Windows:
-venv\Scripts\activate
+.venv\Scripts\activate
 
 # No macOS/Linux:
-source venv/bin/activate
+source .venv/bin/activate
 ```
 
 Instale as dependências e inicie.
@@ -108,8 +112,6 @@ streamlit run app_oraculo.py
 
 ## 🖼️ Demonstrações (capturas de tela)
 
-Insira aqui screenshots ou GIFs que mostrem seu projeto em ação.
-
 ![Página Inicial do Oráculo](https://i.postimg.cc/F1tDPz5n/tela-inicial.png)
 _Visão geral da página inicial e opções de fontes de dados._
 
@@ -123,7 +125,7 @@ _Exemplo de pergunta sobre um artigo da web carregado na plataforma._
 
 ## 📫 Como Contribuir
 
-Explique como outros desenvolvedores podem contribuir com o seu projeto.
+Contribuições são o que tornam a comunidade de código aberto um lugar incrível para aprender, inspirar e criar. Qualquer contribuição que você fizer será muito apreciada.
 
 1. Faça um **Fork** do projeto.
 2. Crie uma nova branch para sua Feature (`git checkout -b feature/AmazingFeature`).
